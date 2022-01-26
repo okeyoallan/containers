@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM bash
 
 LABEL  maintainer "Okeyo Allan, <okeyoallan8@gmail.com>" \
                   "Joyce Wangari, <wangarijoyce.jw@gmail.com>" \
