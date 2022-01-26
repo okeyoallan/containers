@@ -54,48 +54,39 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
     git clone --depth 1 git://github.com/samtools/htslib-plugins && \
     (cd htslib-plugins && make PLUGINS='hfile_cip.so hfile_mmap.so' install)
 
-#Install gatk4
-RUN wget https://github.com/broadinstitute/gatk/releases/download/4.1.4.1/gatk-4.1.4.1.zip -O /tmp/gatk-4.1.4.1.zip\
-	&& unzip /tmp/gatk-4.1.4.1.zip -d /opt/ \
-	&& rm /tmp/gatk-4.1.4.1.zip -f \
-	&& cd /opt/gatk-4.1.4.1 \
-	&& ./gatk --list
-
-ENV PATH="/opt/gatk-4.1.4.1/:${PATH}"
 
 # Install BWA
 LABEL software="bwa"
 LABEL software.version="0.7.17"
-RUN wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2 | tar xvf /tmp/bwa-0.7.17.tar.bz2 && \
-    && bunzip2 /tmp/bwa-0.7.17.tar.bz2 | tar xzf /tmp/bwa-0.7.17.tar \
+RUN wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2 | tar xvf /tmp/bwa-0.7.17.tar.bz2 | bunzip2 /tmp/bwa-0.7.17.tar.bz2 | tar xzf /tmp/bwa-0.7.17.tar \
     && cd /tmp/bwa-0.7.17 \
     && make && make install 
    
 RUN export PATH=$PATH:/tmp/bwa-0.7.17:$PATH
 
 # Install FastQC
-RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip | unzip /tmp/fastqc_v0.11.9.zip && \
-    && cd /tmp/fastqc_v0.11.9 \
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip | unzip /tmp/fastqc_v0.11.9.zip \
+    && cd /tmp/fastqc_v0.11.9\
     && make && make install 
     
 RUN export PATH=$PATH:/tmp/fastqc_v0.11.9:$PATH
 
 # Install GATK4
-RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip | unzip /tmp/gatk-4.2.4.1.zip && \
+RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip | unzip /tmp/gatk-4.2.4.1.zip \
     && cd /tmp/gatk-4.2.4.1 \
     && make && make install 
     
 RUN export PATH=$PATH:/tmp/gatk-4.2.4.1:$PATH
 
 # Install Trimmomatic
-RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip | unzip /tmp/Trimmomatic-0.39.zip && \
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip | unzip /tmp/Trimmomatic-0.39.zip \
     && cd /tmp/Trimmomatic-0.39 \
     && make && make install 
     
 RUN export PATH=$PATH:/tmp/Trimmomatic-0.39:$PATH
 
 #Install SNPeff
-RUN wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip | unzip /tmp/snpEff_latest_core.zip && \
+RUN wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip | unzip /tmp/snpEff_latest_core.zip \
     && cd /tmp/snpEff\
     && make && make install 
     
