@@ -54,45 +54,52 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
     git clone --depth 1 git://github.com/samtools/htslib-plugins && \
     (cd htslib-plugins && make PLUGINS='hfile_cip.so hfile_mmap.so' install)
 
-# installing miniconda
-RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#Install gatk4
+RUN wget https://github.com/broadinstitute/gatk/releases/download/4.1.4.1/gatk-4.1.4.1.zip -O /tmp/gatk-4.1.4.1.zip\
+	&& unzip /tmp/gatk-4.1.4.1.zip -d /opt/ \
+	&& rm /tmp/gatk-4.1.4.1.zip -f \
+	&& cd /opt/gatk-4.1.4.1 \
+	&& ./gatk --list
 
-# install in batch (silent) mode, does not edit PATH or .bashrc or .bash_profile
-# -p path
-# -f force
-RUN bash Miniconda3-latest-Linux-x86_64.sh -b
+ENV PATH="/opt/gatk-4.1.4.1/:${PATH}"
 
-ENV PATH=/root/miniconda3/bin:${PATH}
-# RUN source /root/.bashrc
-# RUN source /root/.bash_profile
-
-RUN conda update -y conda
-RUN conda list
-RUN conda install -y numpy \
-                     matplotlib \
-                     pandas
-
-RUN conda install -y jupyter notebook
-
-# install zip utilities
-RUN conda install -c conda-forge zip
 # Install BWA
 LABEL software="bwa"
 LABEL software.version="0.7.17"
-RUN conda install -c bioconda bwa
+RUN wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2 | tar xvf /temp/bwa-0.7.17.tar.bz2 && \
+    && bunzip2 /temp/bwa-0.7.17.tar.bz2 | tar xzf /temp/bwa-0.7.17.tar \
+    && cd /temp/bwa-0.7.17 \
+    && make && make install 
+   
+RUN export PATH=$PATH:/temp/bwa-0.7.17:$PATH
 
 # Install FastQC
-RUN conda install -c bioconda fastqc
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip | unzip /temp/fastqc_v0.11.9.zip && \
+    && cd /temp/fastqc_v0.11.9 \
+    && make && make install 
+    
+RUN export PATH=$PATH:/temp/fastqc_v0.11.9:$PATH
 
 # Install GATK4
-RUN conda install -c bioconda gatk4
+RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip | unzip /temp/gatk-4.2.4.1.zip && \
+    && cd /temp/gatk-4.2.4.1 \
+    && make && make install 
+    
+RUN export PATH=$PATH:/temp/gatk-4.2.4.1:$PATH
 
 # Install Trimmomatic
-RUN conda install -c bioconda trimmomatic
+RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip | unzip /temp/Trimmomatic-0.39.zip && \
+    && cd Trimmomatic-0.39 \
+    && make && make install 
+    
+RUN export PATH=$PATH:/temp/Trimmomatic-0.39:$PATH
 
 #Install SNPeff
-RUN conda install -c bioconda snpeff
-RUN conda update snpeff
+RUN wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip | unzip /temp/snpEff_latest_core.zip && \
+    && cd snpEff
+    && make && make install 
+    
+RUN export PATH=$PATH:/temp/snpEff:$PATH
 
 
 RUN useradd --create-home --shell /bin/bash ubuntu && \
