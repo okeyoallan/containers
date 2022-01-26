@@ -1,4 +1,4 @@
-FROM bash
+FROM ubuntu
 
 LABEL  maintainer "Okeyo Allan, <okeyoallan8@gmail.com>" \
                   "Joyce Wangari, <wangarijoyce.jw@gmail.com>" \
@@ -15,13 +15,13 @@ RUN apt-get update --fix-missing -qq && apt-get install -y -q \
     wget \
     locales \
     git \
-        libbz2-dev \
-        libcurl4-openssl-dev \
-        libgsl0-dev \
-        liblzma-dev \
-        libncurses5-dev \
-        libperl-dev \
-        libssl-dev \
+    libbz2-dev \
+    libcurl4-openssl-dev \
+    libgsl0-dev \
+    liblzma-dev \
+    libncurses5-dev \
+    libperl-dev \
+    libssl-dev \
     libncurses5-dev \
     libncursesw5-dev \
     build-essential \
@@ -31,8 +31,6 @@ RUN apt-get update --fix-missing -qq && apt-get install -y -q \
     && apt-get clean \
     && apt-get purge \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
 
 # download java
 ENV JAVA_PKG=https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz \
