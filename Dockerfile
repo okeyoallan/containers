@@ -61,18 +61,47 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
-# Install FastQC
 
+RUN yum update -y
+RUN yum install -y wget
+
+RUN wget 
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+    && mkdir /root/.conda 
+    && bash Miniconda3-latest-Linux-x86_64.sh -b 
+    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+    && echo PATH="/root/miniconda3/bin":$PATH >> .bashrc 
+    && exec bash 
+    && conda --version
+
+RUN conda --version 
+
+# Install FastQC
+RUN conda clean --all --yes && \
+    conda install -c bioconda fastqc
 
 # Install GATK4
-
+RUN conda clean --all --yes 
+RUN conda create --name GVA-gatk -c bioconda gatk4
+RUN conda activate GVA-gatk
+RUN gatk --version
+RUN gatk
 
 # Install Trimmomatic
-
-
+RUN conda clean --all --yes && \
+    conda install -c bioconda trimmomatic
+    
 #Install SNPeff
-
-
+RUN conda clean --all --yes && \
+    conda install -c bioconda snpeff
+    
+# Installing vcftools
+RUN wget https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools-0.1.16.tar.gz && \
+    tar -xvf vcftools-0.1.16.tar.gz && \
+    cd vcftools-0.1.16 && \
+    ./configure && \
+    make && \
+    make install
 
 RUN useradd --create-home --shell /bin/bash ubuntu && \
   chown -R ubuntu:ubuntu /home/ubuntu
