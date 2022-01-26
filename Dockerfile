@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM debian
 
 LABEL  maintainer "Okeyo Allan, <okeyoallan8@gmail.com>" \
                   "Joyce Wangari, <wangarijoyce.jw@gmail.com>" \
