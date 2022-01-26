@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:stable
 
 LABEL  maintainer "Okeyo Allan, <okeyoallan8@gmail.com>" \
                   "Joyce Wangari, <wangarijoyce.jw@gmail.com>" \
@@ -63,8 +63,8 @@ RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 
 ENV PATH=/root/miniconda3/bin:${PATH}
-RUN source /root/.bashrc
-RUN source /root/.bash_profile
+# RUN source /root/.bashrc
+# RUN source /root/.bash_profile
 
 RUN conda update -y conda
 RUN conda list
