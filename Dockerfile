@@ -62,36 +62,16 @@ RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
 # Install FastQC
-RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip
-RUN unzip fastqc_v0.11.9.zip
-RUN cd FastQC
-RUN ln -s /FastQC/fastqc /usr/local/bin/fastqc
 
-
-RUN export PATH=$PATH:fastqc_v0.11.9:$PATH
 
 # Install GATK4
-RUN wget https://github.com/broadinstitute/gatk/releases/download/4.2.4.1/gatk-4.2.4.1.zip
-RUN unzip gatk-4.2.4.1.zip
-RUN cd /tmp/gatk-4.2.4.1
-RUN ln -s /tmp/gatk-4.2.4.1/gatk4 /usr/local/bin/gatk4
-RUN export PATH=$PATH:/tmp/gatk-4.2.4.1:$PATH
+
 
 # Install Trimmomatic
-RUN wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip
-RUN unzip /tmp/Trimmomatic-0.39.zip
-RUN cd /tmp/Trimmomatic-0.39
-RUN ln -s /tmp/Trimmomatic-0.39/trimmomatic /usr/local/bin/trimmomatic
 
-RUN export PATH=$PATH:/tmp/Trimmomatic-0.39:$PATH
 
 #Install SNPeff
-RUN wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip
-RUN unzip /tmp/snpEff_latest_core.zip
-RUN cd /tmp/snpEff
-RUN ln -s /tmp/gatk-4.2.4.1/gatk4 /usr/local/bin/snpEff
 
-RUN export PATH=$PATH:/tmp/snpEff:$PATH
 
 
 RUN useradd --create-home --shell /bin/bash ubuntu && \
