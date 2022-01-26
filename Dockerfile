@@ -96,7 +96,7 @@ RUN export PATH=$PATH:/tmp/Trimmomatic-0.39:$PATH
 
 #Install SNPeff
 RUN wget https://snpeff.blob.core.windows.net/versions/snpEff_latest_core.zip | unzip /tmp/snpEff_latest_core.zip && \
-    && cd /tmp/snpEff
+    && cd /tmp/snpEff\
     && make && make install 
     
 RUN export PATH=$PATH:/tmp/snpEff:$PATH
