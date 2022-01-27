@@ -29,7 +29,6 @@ RUN apt-get update --fix-missing -qq && apt-get install -y -q \
     pkg-config \
     zlib1g-dev \
     bzip2 \
-    python python-dev \
     && apt-get clean \
     && apt-get purge \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -60,14 +59,25 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 # Install BWA
 
 RUN git clone https://github.com/lh3/bwa.git
-RUN cd bwa; make
+RUN cd bwa
+RUN make
+RUN make install
 
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
-     conda init bash \
-    echo "conda activate base" >> ~/.bashrc
+# RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+#    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+ #   rm ~/miniconda.sh && \
+  #   conda init bash \
     
+    
+ENV CONDA_DIR /opt/conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+     /bin/bash ~/miniconda.sh -b -p /opt/conda \
+     conda init bash \ 
+    
+
+# Put conda in path so we can use conda activate
+ENV PATH=$CONDA_DIR/bin:$PATH
+RUN  echo "conda activate base" >> ~/.bashrc
 
 # Install FastQC
 RUN conda clean --all --yes && \
