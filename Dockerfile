@@ -55,7 +55,8 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
     git clone --depth 1 git://github.com/samtools/htslib-plugins && \
     (cd htslib-plugins && make PLUGINS='hfile_cip.so hfile_mmap.so' install)
 
-
+# add ps command 
+RUN apt-get update && apt install -y procps g++ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 # Install BWA
 
 RUN git clone https://github.com/lh3/bwa.git
