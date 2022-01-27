@@ -62,12 +62,11 @@ RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh \
-    && echo PATH="/root/miniconda3/bin":$PATH >> .bashrc \
-    && exec bash \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+    && mkdir /root/.conda 
+    && bash Miniconda3-latest-Linux-x86_64.sh -b 
+    && echo PATH="/root/miniconda3/bin":$PATH >> .bashrc 
+    && exec bash 
     && conda --version 
 
 RUN conda --version 
