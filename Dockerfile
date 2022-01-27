@@ -61,16 +61,10 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh \
-    && exec bash \
-    && conda --version
-
-
-ENV PATH=/root/miniconda3/bin:${PATH}
-RUN conda --version
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
+    rm ~/miniconda.sh && \
+    echo "conda activate base" >> ~/.bashrc
 
 # Install FastQC
 RUN conda clean --all --yes && \
