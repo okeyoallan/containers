@@ -103,7 +103,7 @@ RUN conda clean --all --yes && \
     
 # Install Multiqc
 RUN conda clean --all --yes && \
-    pip install multiqc
+    conda install -c conda-forge multiqc
 
 RUN useradd --create-home --shell /bin/bash ubuntu && \
   chown -R ubuntu:ubuntu /home/ubuntu
