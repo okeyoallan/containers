@@ -61,6 +61,8 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
+RUN conda clean --all --yes && \
+    conda install -c bioconda bwa
 
 # RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
 #    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
