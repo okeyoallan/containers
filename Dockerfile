@@ -13,6 +13,7 @@ WORKDIR /tmp
 RUN apt-get update --fix-missing -qq && apt-get install -y -q \
     curl \
     wget \
+    yum \
     zip \
     locales \
     git \
