@@ -13,7 +13,6 @@ WORKDIR /tmp
 RUN apt-get update --fix-missing -qq && apt-get install -y -q \
     curl \
     wget \
-    yum \
     zip \
     locales \
     git \
@@ -62,9 +61,6 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 RUN git clone https://github.com/lh3/bwa.git
 RUN cd bwa; make
 
-
-RUN yum update -y
-RUN yum install -y wget
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && mkdir /root/.conda \
