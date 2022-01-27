@@ -65,6 +65,8 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh && \
     echo "conda activate base" >> ~/.bashrc
+    
+ENV PATH=/opt/conda/miniconda3/bin:${PATH}
 
 # Install FastQC
 RUN conda clean --all --yes && \
