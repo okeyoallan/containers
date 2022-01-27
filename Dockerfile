@@ -57,16 +57,8 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 
 # add ps command 
 RUN apt-get update && apt install -y procps g++ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
-# Install BWA
-
-RUN git clone https://github.com/lh3/bwa.git
-RUN cd bwa; make
-
-# RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
-#    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
- #   rm ~/miniconda.sh && \
-  #   conda init bash \
-    
+ 
+ # Install and compile miniconda3
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH    
 ENV CONDA_DIR /opt/conda
@@ -105,9 +97,13 @@ RUN wget https://github.com/vcftools/vcftools/releases/download/v0.1.16/vcftools
     ./configure && \
     make && \
     make install
-    
+ # Install BWA   
 RUN conda clean --all --yes && \
     conda install -c bioconda bwa
+    
+# Install Multiqc
+RUN conda clean --all --yes && \
+     conda install -c bioconda multiqc
 
 RUN useradd --create-home --shell /bin/bash ubuntu && \
   chown -R ubuntu:ubuntu /home/ubuntu
