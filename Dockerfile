@@ -105,6 +105,9 @@ RUN conda clean --all --yes && \
 RUN conda clean --all --yes && \
     pip install multiqc
 
+# update conda environment 
+RUN conda update --all
+
 RUN useradd --create-home --shell /bin/bash ubuntu && \
   chown -R ubuntu:ubuntu /home/ubuntu
 
