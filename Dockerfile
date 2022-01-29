@@ -108,6 +108,12 @@ RUN conda clean --all --yes && \
 # Install vt tool
 RUN conda clean --all --yes && \
 conda install -c bioconda vt
+# Install vt from github
+RUN git clone https://github.com/atks/vt.git \
+    cd vt \
+    git submodule update --init --recursive \
+    make \
+    make test
 
 # update conda environment 
 RUN conda update --all
