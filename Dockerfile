@@ -112,7 +112,6 @@ conda install -c bioconda vt
 # Install vt from github
 RUN git clone https://github.com/atks/vt.git 
 RUN cd vt \
-    git submodule update --init --recursive \
     make \
     make test
     
