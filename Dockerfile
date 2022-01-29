@@ -104,6 +104,10 @@ RUN conda clean --all --yes && \
 # Install Multiqc
 RUN conda clean --all --yes && \
     pip install multiqc
+    
+# Install vt tool
+RUN conda clean --all --yes && \
+conda install -c bioconda vt
 
 # update conda environment 
 RUN conda update --all
