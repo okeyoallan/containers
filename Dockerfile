@@ -60,6 +60,7 @@ RUN apt-get update && apt install -y procps g++ && apt-get clean && rm -rf /var/
 # Install vt from github
 RUN git clone https://github.com/atks/vt.git \
     && cd vt \
+    && git submodule update --init --recursive \
     && make 
     
 RUN  git pull \
