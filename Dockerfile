@@ -113,6 +113,10 @@ RUN git clone https://github.com/atks/vt.git
 RUN cd vt \
     make \
     make test
+    
+RUN  make clean \
+     git pull \
+     make -j 40
 
 # update conda environment 
 RUN conda update --all
