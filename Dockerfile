@@ -116,8 +116,7 @@ RUN cd vt \
     make \
     make test
     
-RUN  make clean \
-     git pull \
+RUN  git pull \
      make -j 40
 
 # update conda environment 
