@@ -110,13 +110,12 @@ RUN conda clean --all --yes && \
 conda install -c bioconda vt
 
 # Install vt from github
-RUN git clone https://github.com/atks/vt.git 
-RUN cd vt \
+RUN git clone https://github.com/atks/vt.git \
+    cd vt \
     make \
     make test
     
 RUN  git pull \
-     make -j 40
 
 # update conda environment 
 RUN conda update --all
