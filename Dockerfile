@@ -58,12 +58,12 @@ RUN curl -L https://github.com/samtools/htslib/releases/download/${htsversion}/h
 # add ps command 
 RUN apt-get update && apt install -y procps g++ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 # Install vt from github
-RUN git clone https://github.com/atks/vt.git \
-    && cd vt \
-    && git submodule update --init --recursive \
-    && make 
+#RUN git clone https://github.com/atks/vt.git \
+ #   && cd vt \
+  #  && git submodule update --init --recursive \
+   # && make 
     
-RUN  git pull \
+# RUN  git pull \
  
  # Install and compile miniconda3
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -115,6 +115,9 @@ RUN conda clean --all --yes && \
 # Install vt tool
 RUN conda clean --all --yes && \
 conda install -c bioconda vt
+
+RUN conda install -c bioconda/label/cf201901 vt 
+RUN conda update vt
 
 
 # update conda environment 
